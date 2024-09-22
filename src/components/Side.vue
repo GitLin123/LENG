@@ -1,6 +1,6 @@
 <template>
 <el-menu
-        default-active="1"
+        default-active="/"
         class="el-menu-vertical-demo"
         style="height:719px"
         router="true"
