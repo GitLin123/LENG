@@ -1,4 +1,10 @@
 <template>
-    <div>我是用户界面</div>
+    <div>
+        <el-tabs type="card">
+        <el-tab-pane label="我的笔记">我的笔记</el-tab-pane>
+        <el-tab-pane label="我的收藏">我的收藏</el-tab-pane>
+        <el-tab-pane label="系统设置">系统设置</el-tab-pane>
+  </el-tabs>
+    </div>
 </template>
 <script setup></script>
