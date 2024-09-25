@@ -1,0 +1,10 @@
+navicat数据库管理工具——https://www.cnblogs.com/pengxiaojie/p/15384747.html 下载和安装破解的教程
+phpstudy一键启动服务器——https://old.xp.cn/download.html 下载链接
+两个工具配合来使用数据库
+=====================================================
+Node.js(项目运行环境)  https://nodejs.cn/download/
+使用node -v命令检测安装情况（运行项目和使用npm命令的必要条件）
+
+在GitHub上面下载项目后，解压到文件夹，vscode打开,执行命令npm install 安装项目依赖
+执行npm run dev运行项目
+项目地址 https://github.com/GitLin123/LENG
