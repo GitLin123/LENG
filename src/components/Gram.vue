@@ -12,8 +12,4 @@
 
 </script>
 <style scoped>
-.main {
-    background-color: hotpink;
-    height: 800px;
-}
 </style>

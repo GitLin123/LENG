@@ -11,8 +11,4 @@
 <script lang="ts" setup>
 </script>
 <style scoped>
-.main {
-    background-color: aqua;
-    height: 300px;
-}
 </style>
