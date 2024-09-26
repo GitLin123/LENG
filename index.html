@@ -7,7 +7,69 @@
     <title>Vite + Vue + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="root">
+      <div
+        class="custom-titlebar"
+        style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size:small;"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 286"><defs><linearGradient x1="0%" y1="50%" x2="100%" y2="50%" id="IconifyId1922ec1430547930f311"><stop stop-color="#52F2C9" offset="0%"/><stop stop-color="#52F2C9" offset="9.876%"/><stop stop-color="#8573E2" offset="100%"/></linearGradient></defs><path d="M22.37 285.192c-3.854 0-7.706-1.016-11.214-3.048C4.171 278.096 0 270.859 0 262.786V21.908c0-7.887 4.073-14.96 10.895-18.92c6.822-3.96 14.983-3.985 21.832-.071l155.474 88.847a7.995 7.995 0 0 1-7.933 13.88L24.795 16.799c-2.658-1.518-4.994-.493-5.876.019c-.881.512-2.931 2.032-2.931 5.09v240.879c0 3.32 2.226 4.969 3.183 5.523c.957.555 3.494 1.668 6.375.015l200.493-114.952h-23.111a7.995 7.995 0 0 1-7.994-7.995v-5.33h-9.992v18.154a7.995 7.995 0 0 1-7.994 7.994h-25.314a7.995 7.995 0 0 1-7.994-7.994v-33.308h-10.242v56.373a7.994 7.994 0 0 1-7.994 7.994h-26.23a7.995 7.995 0 0 1-7.994-7.994V101.41h-9.825v108.583a7.995 7.995 0 0 1-7.995 7.994H46.714a7.994 7.994 0 0 1-7.994-7.994V65.77h-3.331a7.994 7.994 0 1 1 0-15.988h11.325a7.994 7.994 0 0 1 7.994 7.994V202h10.658V93.417a7.994 7.994 0 0 1 7.994-7.994h25.814a7.994 7.994 0 0 1 7.994 7.994v79.855h10.242v-56.373a7.995 7.995 0 0 1 7.994-7.994h26.23a7.994 7.994 0 0 1 7.994 7.994v33.308h9.326v-18.153a7.994 7.994 0 0 1 7.994-7.994h25.98a7.994 7.994 0 0 1 7.994 7.994v5.329h34.144c5.02 0 9.261 3.26 10.552 8.11c1.292 4.852-.767 9.789-5.123 12.285L33.498 282.194c-3.487 1.999-7.308 2.998-11.128 2.998" fill="url(#IconifyId1922ec1430547930f311)"/></svg>
+      &nbsp;LENG外语学习平台
+      </div>
+      <div id="app"></div>
+    </div>
+    
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
+<script>
+</script>
+<style>
+  html,body {
+    margin: 0;
+    /* 禁止 html,body 滚动，避免滚动条出现在标题栏右边 */
+    overflow: hidden;
+    height: 100%;
+    
+  }
+  .root {
+    /* 使用 flex 来实现 */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+  }
+  .custom-titlebar {
+    display: flex;
+    align-items: center;
+    /* 避免被收缩 */
+    flex-shrink: 0;
+    /* 高度与 main.js 中 titleBarOverlay.height 一致  */
+    height: 35px;
+    width: 100%;
+    /* 标题栏始终在最顶层（避免后续被 Modal 之类的覆盖） */
+    z-index: 9999;
+
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding-left: 12px;
+    font-size: 14px;
+  }
+  .content {
+    /* 内容区需要设置可滚动 */
+    overflow: auto;
+  }
+  .custom-titlebar {
+    /* ... 省略其他样式 */
+    /* 避免选中窗口标题 */
+    user-select: none;
+    /* 设置该属性表明这是可拖拽区域，用来移动窗口 */
+    -webkit-app-region: drag;
+  }
+  /* 修改element的全局色彩 */
+  :root {
+  --el-color-primary: #55d5b9;
+}
+</style>
+

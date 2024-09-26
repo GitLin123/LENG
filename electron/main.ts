@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import { Menu } from 'electron'
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -34,9 +35,21 @@ function createWindow() {
 
     },
     width: 1200,
-    height: 800
+    height: 800,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: 'rgb(255,255,255)',
+      height: 35,
+      symbolColor: 'black'
+    },
+    minHeight: 700,//最小窗口高度
+    minWidth: 700,//最小窗口宽度
+    resizable:true,
+    backgroundColor: '#00000000',
   })
-  //win.webContents.openDevTools() 
+  Menu.setApplicationMenu(null) // null值取消顶部菜单栏
+  win.webContents.openDevTools() //启动时打开开发者工具
+  
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', (new Date).toLocaleString())

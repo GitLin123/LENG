@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -17,8 +17,22 @@ function createWindow() {
       preload: path.join(__dirname, "preload.mjs")
     },
     width: 1200,
-    height: 800
+    height: 800,
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
+      color: "rgb(255,255,255)",
+      height: 35,
+      symbolColor: "black"
+    },
+    minHeight: 700,
+    //最小窗口高度
+    minWidth: 700,
+    //最小窗口宽度
+    resizable: true,
+    backgroundColor: "#00000000"
   });
+  Menu.setApplicationMenu(null);
+  win.webContents.openDevTools();
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });

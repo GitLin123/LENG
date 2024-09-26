@@ -13,4 +13,5 @@ import SearchWord from './SearchWord.vue';
 
 </script>
 <style scoped>
+
 </style>

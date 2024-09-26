@@ -11,7 +11,6 @@
 <script setup lang="ts">
 import Side from './components/side/Side.vue'
 </script>
+<style>
 
-
-<style scoped>
 </style>

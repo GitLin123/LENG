@@ -34,5 +34,7 @@ const change = () => {
 </script>
 
 <style scoped>
-
+  .el-menu-item.is-active {
+    color:#55d5b9
+  }
 </style>
