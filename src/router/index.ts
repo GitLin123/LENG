@@ -1,24 +1,20 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
-import Word from '../components/Words.vue'
-import Gram from '../components/Gram.vue'
-import Talk from '../components/Talk.vue'
-import Home from '../components/Home.vue'
 const routes = [
   { 
     path: '/',
-    component:Word
+    component:() => import('../components/word/Words.vue')
   },
   {
     path: '/gram',
-    component:Gram
+    component:() => import('../components/gram/Gram.vue')
   },
   {
     path: '/talk',
-    component:Talk
+    component:() => import('../components/talk/Talk.vue')
   },
   {
     path: '/home',
-    component:Home
+    component:() => import('../components/home/Home.vue')
   },
 ]
 

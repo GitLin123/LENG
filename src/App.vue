@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import Side from './components/Side.vue'
+import Side from './components/side/Side.vue'
 </script>
 
 

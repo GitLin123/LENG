@@ -1,0 +1,10 @@
+host: locahost
+leng.sql用于一键创建数据库
+修改server下的db.js，把账号密码换成自己的
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'leng'
+});
+db.js的这个地方！！
