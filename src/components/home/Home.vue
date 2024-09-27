@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="use">
         <el-tabs type="card">
         <el-tab-pane label="我的笔记">我的笔记</el-tab-pane>
         <el-tab-pane label="我的收藏">我的收藏</el-tab-pane>
@@ -8,3 +8,9 @@
     </div>
 </template>
 <script setup></script>
+<style scoped>
+.use {
+    height:3000px;
+    background-color: bisque
+}
+</style>

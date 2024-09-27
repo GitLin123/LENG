@@ -1,21 +1,13 @@
 <template>
-    <div>
-        <el-menu
-        default-active="/"
-        class="el-menu-vertical-demo"
-        style="height:719px;width: 150px;"
-      >
-        <el-menu-item index="1">
-          <el-icon><icon-menu /></el-icon>
-          <span>AI聊天</span>
-        </el-menu-item>
-
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
-          <span>和朋友聊天</span>
-        </el-menu-item>
-      </el-menu>
+    <div style="position: fixed">
+      <el-tabs type="card">
+        <el-tab-pane label="和AI聊天"><AiTalk></AiTalk></el-tab-pane>
+        <el-tab-pane label="和盆友聊天">Talk with friends</el-tab-pane>
+  </el-tabs>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import AiTalk from './AiTalk.vue'
+
+</script>

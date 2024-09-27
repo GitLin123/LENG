@@ -2,7 +2,6 @@
 <el-menu
         default-active="/"
         class="el-menu-vertical-demo"
-        style="height:719px"
         router="true"
       >
         <el-menu-item index="/">
@@ -36,5 +35,14 @@ const change = () => {
 <style scoped>
   .el-menu-item.is-active {
     color:#55d5b9
+  }
+  .el-menu-vertical-demo {
+    position:fixed;
+    overflow-y: auto;
+    width: 200px;
+    height: 719px
+  }
+  .el-aside {
+    width: 200px
   }
 </style>
