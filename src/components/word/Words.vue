@@ -1,12 +1,12 @@
 <template>
 <div class="main">
   <div class="top">
-    <el-carousel height="250px" style="width: 450px;" motion-blur>
+    <el-carousel height="250px" style="width: 500px;" motion-blur>
       <el-carousel-item v-for="item in 4" :key="item">
-        <h3 class="small justify-center" text="2xl">{{ item }}</h3>
+        <h3 class="small justify-center" text="2xl">{{ "广告位"+item }}</h3>
       </el-carousel-item>
     </el-carousel>
-    <div class="weather"></div>
+    <div class="single">这里放每日单词和它的例句</div>
   </div>
   <div style="height: 10px;"></div>
     <el-tabs type="card">
@@ -19,7 +19,6 @@
 </template>
 <script lang="ts" setup>
 import SearchWord from './SearchWord.vue';
-
 </script>
 <style scoped>
 .el-carousel__item h3 {

@@ -4,6 +4,7 @@
         v-model="words"
         style="width: 300px; margin-right: 8px"
         placeholder="请输入单词"
+        @keyup.enter="find"
       ></el-input>
       <el-button type="primary" size="default" @click="find" :disabled="loading">查找</el-button>
     </div>
