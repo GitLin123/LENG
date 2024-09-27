@@ -1,26 +1,92 @@
 <template>
-    <div>
-        <el-input v-model="words" style="width:300px;margin-right:8px"></el-input>
-        <el-button type="primary" size="default" @click="find" >查找</el-button>
-        <h3>单词名:{{ meaning[0]?.word }}</h3>
-        <h3>翻译:{{ meaning[0]?.translation }}</h3>
+    <div class="main">
+      <el-input
+        v-model="words"
+        style="width: 300px; margin-right: 8px"
+        placeholder="请输入单词"
+      ></el-input>
+      <el-button type="primary" size="default" @click="find" :disabled="loading">查找</el-button>
     </div>
-</template>
-
-<script setup lang='ts'>
-import { ref } from 'vue';
-import axios from 'axios';
-let words:any = ref('')
-let meaning:any = ref([])
-const find=async ()=>{
-    let result = await axios({
-        method:'get',
-        url:`http://localhost:3000/get_word?word=${words.value}`,
-    })
-    meaning.value = result.data
+    <div class="result" v-if="res && res.length > 0">
+      <h2>{{ words }}</h2>
+      <p>{{ '英 /' + res[0]?.phonetic + '/' }}</p>
+      <h5 v-html="formattedTranslation"></h5>
+      <h5 v-html="formattedDefinition"></h5>
+    </div>
+    <div v-else-if="error.length > 0" class="error">{{ error }}</div>
+    <div v-else class="loading" v-if="loading">加载中...</div>
+  </template>
+  
+  <script setup lang='ts'>
+  import { ref, computed, watch } from 'vue';
+  import axios from 'axios';
+  
+  const words = ref<any>('');
+  const res = ref<WordData[]>([]);
+  const loading = ref<any>(false);
+  const error = ref<any>('');
+  interface WordData {
+  word: string;
+  phonetic: string;
+  definition: string;
+  translation: string;
+  pos: string | null;
+  collins: string;
+  oxford: string;
+  tag: string;
+  bnc: string;
+  frq: string;
+  exchange: string;
+  detail: string | null;
+  audio: string | null;
 }
-</script>
-
-<style scoped>
-
-</style>
+  const formattedTranslation = computed(() => {
+    return res.value[0]?.translation?.replace(/\\n/g, '<br/>') || '';
+  });
+  
+  const formattedDefinition = computed(() => {
+    return res.value[0]?.definition?.replace(/\\n/g, '<br/>') || '';
+  });
+  
+  watch(words, () => {
+    // 清空之前的结果和错误信息
+    res.value = [];
+    error.value = '';
+  });
+  
+  const find = async () => {
+    if (!words.value.trim()) {
+      error.value = '请输入单词';
+      return;
+    }
+    
+    loading.value = true;
+    error.value = '';
+    
+    try {
+      const result = await axios.get(`http://localhost:3000/get_word?word=${encodeURIComponent(words.value)}`);
+      res.value = result.data;
+      console.log(res.value)
+      if(res.value.length==0){error.value=`未找到单词${words.value}`}
+    } catch (err) {
+      error.value = '查找失败，请稍后再试。';
+    } finally {
+      loading.value = false;
+    }
+  }
+  </script>
+  
+  <style scoped>
+  .main {
+    margin-bottom: 16px;
+  }
+  .error {
+    color: red;
+  }
+  .loading {
+    color: grey;
+  }
+  .result h5 {
+    white-space: pre-line; /* 确保换行符能够被正确显示 */
+  }
+  </style>

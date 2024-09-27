@@ -41,7 +41,7 @@ app.get('/get_word', (req, res) => {
     }
 
     // 使用参数化查询来避免 SQL 注入
-    const sql = 'SELECT * FROM enwords WHERE word = ?';
+    const sql = 'SELECT * FROM ecdict WHERE word = ?';
     pool.query(sql, [word], (err, results) => {
         if (err) {
             return res.status(500).send(err);

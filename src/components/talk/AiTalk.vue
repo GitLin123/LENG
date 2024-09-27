@@ -13,7 +13,7 @@
         <div class="chat-container" ref="chatContainer">
             <div class="message-list">
                 <div v-for="(item, index) in message" :key="index" v-html="renderMessage(item)"></div>
-                <p v-if="typing">{{ "Ai_Speaker: "+currentAIMessage }}</p>
+                <p v-if="typing">{{ "AI_Speaker: "+currentAIMessage }}</p>
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@ const scrollToBottom = () => {
 
 // 渲染消息内容为 Markdown，并应用高亮
 const renderMessage = (item) => {
-    const content = item.role === "assistant" ? "AI Speaker: " : "You: ";
+    const content = item.role === "assistant" ? "AI_Speaker: " : "You: ";
     const markdownContent = marked(content + item.content);
     
     // 将返回的 HTML 内容包含代码高亮处理

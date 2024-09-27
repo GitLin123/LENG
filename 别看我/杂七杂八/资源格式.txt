@@ -1,3 +1,34 @@
-单词名 音标 解释  例句
+字段	解释
+word	单词名称
+phonetic	音标，以英语英标为主
+definition	单词释义（英文），每行一个释义
+translation	单词释义（中文），每行一个释义
+pos	词语位置，用 "/" 分割不同位置
+collins	柯林斯星级
+oxford	是否是牛津三千核心词汇
+tag	字符串标签：zk/中考，gk/高考，cet4/四级 等等标签，空格分割
+bnc	英国国家语料库词频顺序
+frq	当代语料库词频顺序
+exchange	时态复数等变换，使用 "/" 分割不同项目，见后面表格
+-------------------------------------------------------------------------------------------------------
+可能大家注意到上表有一个 Exchange 字段，它就是来做这个事情的，这是本词典一大特色之一，格式如下：
+
+类型1:变换单词1/类型2:变换单词2
+比如 perceive 这个单词的 exchange 为：
+
+d:perceived/p:perceived/3:perceives/i:perceiving
+意思是 perceive 的过去式（p） 为 perceived，过去分词（d）为 perceived, 现在分词（'i'）是 perceiving，第三人称单数（3）为 perceives。冒号前面具体项目为：
+
+类型	说明
+p	过去式（did）
+d	过去分词（done）
+i	现在分词（doing）
+3	第三人称单数（does）
+r	形容词比较级（-er）
+t	形容词最高级（-est）
+s	名词复数形式
+0	Lemma，如 perceived 的 Lemma 是 perceive
+1	Lemma 的变换形式，比如 s 代表 apples 是其 lemma 的复数形式
+这个是根据 BNC 语料库和 NodeBox / WordNet 的语言处理工具生成的，有了这个 Exchange ，你的 App 能为用户提供更多信息。
 
 
