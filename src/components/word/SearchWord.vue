@@ -75,11 +75,14 @@
       loading.value = false;
     }
   }
+
+
   </script>
   
   <style scoped>
   .main {
     margin-bottom: 16px;
+    text-align: center;
   }
   .error {
     color: red;
@@ -87,7 +90,9 @@
   .loading {
     color: grey;
   }
-  .result h5 {
-    white-space: pre-line; /* 确保换行符能够被正确显示 */
+  .result {
+    overflow-y: scroll;
+    height: 500px;
+    
   }
   </style>

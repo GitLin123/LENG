@@ -50,6 +50,24 @@ app.get('/get_word', (req, res) => {
     });
 });
 
+// 使用连接池执行查询
+app.get('/get_word2', (req, res) => {
+    // 这里我们假设你希望根据查询参数中的 'id' 获取数据
+    const id = req.query.id; // 从查询参数中获取单词
+    if (!id) {
+        return res.status(400).send('id parameter is required');
+    }
+
+    // 使用参数化查询来避免 SQL 注入
+    const sql = 'SELECT * FROM ecdict WHERE id = ?';
+    pool.query(sql, [id], (err, results) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.json(results);
+    });
+});
+
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/welcome', (req, res) => {
   res.send('hello world')

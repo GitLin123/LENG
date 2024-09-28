@@ -40,7 +40,7 @@ const change = () => {
     position:fixed;
     overflow-y: auto;
     width: 200px;
-    height: 719px
+    height: 100vh;
   }
   .el-aside {
     width: 200px

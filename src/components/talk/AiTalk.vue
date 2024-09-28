@@ -9,11 +9,12 @@
             @keyup.enter="commit"
         />
         <el-button type="primary" @click="commit">发送</el-button>
-        
+        <el-button @click="clean">清除聊天记录</el-button>
         <div class="chat-container" ref="chatContainer">
             <div class="message-list">
                 <div v-for="(item, index) in message" :key="index" v-html="renderMessage(item)"></div>
-                <p v-if="typing">{{ "AI_Speaker: "+currentAIMessage }}</p>
+                <p v-if="typing" v-html="`<strong>AI_Speaker: </strong>${currentAIMessage}`"></p>
+
             </div>
         </div>
     </div>
@@ -25,12 +26,13 @@ import axios from 'axios';
 import { marked } from 'marked'; // 引入 marked
 import hljs from 'highlight.js'; // 引入 highlight.js
 import 'highlight.js/styles/github.css'; // 引入样式（可以选择其他样式）
-
+import { ElMessage,ElMessageBox } from 'element-plus';
 let tag = ref('');
+const emojis = ["😊", "😄", "🎉", "🤖", "✨", "👍", "💡", "❤️"];
 let message = ref([
     {
         role: 'system',
-        content: 'Please start chat when you read this message.'
+        content: 'What can I do for you?'
     }
 ]);
 let typing = ref(false);
@@ -44,34 +46,38 @@ const headers = {
 const chatContainer = ref(null);
 
 const commit = async () => {
-    if (tag.value.trim() === '') return;
-    if (typing.value) return;
+  if (tag.value.trim() === '' || typing.value) return;
 
-    message.value.push({ role: 'user', content: tag.value });
+  // 立即渲染用户消息
+  message.value.push({ role: 'user', content: tag.value });
+  tag.value = ''; // 清空输入框
 
-    const data = {
-        max_tokens: 1200,
-        model: 'gpt-3.5-turbo',
-        temperature: 0.8,
-        top_p: 1,
-        presence_penalty: 1,
-        messages: message.value
-    };
+  // 异步请求
+  const data = {
+    max_tokens: 1200,
+    model: 'gpt-3.5-turbo',
+    temperature: 0.8,
+    top_p: 1,
+    presence_penalty: 1,
+    messages: message.value
+  };
 
-    try {
-        const response = await axios.post(url, data, { headers });
-        const result = response.data;
-        const aiMessage = result?.choices[0]?.message?.content || '没有返回内容';
-        
-        await typeWriter(aiMessage);
-        message.value.push({ role: 'assistant', content: aiMessage });
-
-        tag.value = '';
-    } catch (error) {
-        console.error(error);
-        currentAIMessage.value = '出错了，请重试';
-    }
+  try {
+    const response = await axios.post(url, data, { headers });
+    const result = response.data;
+    const aiMessage = result?.choices[0]?.message?.content || '没有返回内容';
+    // 随机选择一个 emoji
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    await typeWriter(aiMessage+' '+randomEmoji);
+    message.value.push({ role: 'assistant', content: aiMessage+' '+randomEmoji});
+    // 在发送成功后保存聊天记录
+    saveChatHistory();
+  } catch (error) {
+    console.error(error);
+    currentAIMessage.value = '出错了，请重试';
+  }
 };
+
 
 const typeWriter = (text) => {
     return new Promise((resolve) => {
@@ -86,7 +92,7 @@ const typeWriter = (text) => {
                 nextTick(() => {
                     scrollToBottom();
                 });
-                setTimeout(typingEffect, 200);
+                setTimeout(typingEffect, 60);
             } else {
                 typing.value = false;
                 resolve();
@@ -105,13 +111,13 @@ const scrollToBottom = () => {
 
 // 渲染消息内容为 Markdown，并应用高亮
 const renderMessage = (item) => {
-    const content = item.role === "assistant" ? "AI_Speaker: " : "You: ";
-    const markdownContent = marked(content + item.content);
+    const role = (item.role === "assistant"||item.role === "system") ? "AI_Speaker: " : "You: ";
+    const markdownContent =marked(role + item.content);
     
     // 将返回的 HTML 内容包含代码高亮处理
     const highlightedContent = highlightCode(markdownContent);
 
-    return highlightedContent;
+    return highlightedContent.replace(role, `<strong>${role}</strong>`);
 };
 
 // 高亮代码块
@@ -139,12 +145,52 @@ onMounted(() => {
     const savedMessages = localStorage.getItem('chatMessages');
     if (savedMessages) {
         message.value = JSON.parse(savedMessages);
-    }
+    } // 如果没有存储的消息，添加初始系统消息
+    message.value = [
+      {
+        role: 'system',
+        content: 'What can I do for you? 😊'
+      }
+    ];
 });
 
-onBeforeUnmount(() => {
+// 保存聊天记录到 localStorage
+const saveChatHistory = () => {
     localStorage.setItem('chatMessages', JSON.stringify(message.value));
+};
+
+
+onBeforeUnmount(() => {
+    saveChatHistory();
 });
+
+//清除聊天记录
+const clean = () => {
+    ElMessageBox.confirm(
+    '确定要删除聊天记录吗？',
+    '提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: '提示',
+      customClass:'message'
+    }
+  )
+    .then(() => {
+      localStorage.clear();
+      message.value = [message.value[0]]; // 保留第一条消息
+      ElMessage({
+        type: 'success',
+        message: '删除成功！',
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '删除取消！',
+      })
+    })
+}
 </script>
 
 
@@ -179,5 +225,9 @@ code {
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     font-size: 14px;
     color: #333;
+}
+
+.message {
+    z-index: 999;
 }
 </style>
