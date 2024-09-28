@@ -1,5 +1,10 @@
 # 软件工程小组作业项目：LENG外语学习平台
 # 项目起步中 持续更新~
+## 学单词页面
+![495709d98b74e04ca8da418dc2470ff](https://github.com/user-attachments/assets/94ea3db8-b206-484b-a483-6f8a44d5208a)
+## AI页面
+![a6d1b690f66945bed2c49fd7f55aad0](https://github.com/user-attachments/assets/64767947-161b-484c-a3d2-278b6008f2c5)
+
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
