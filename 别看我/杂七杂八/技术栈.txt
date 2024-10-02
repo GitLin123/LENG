@@ -1,5 +1,7 @@
 客户端：
-    Html5 + Css3 + JavaScript + Vue3 + ElementPlus + Electron 构建前端服务
+    Html5 + Css3(sass) + JavaScript 
+    Vue3(vite) + ElementPlus + Electron 
+    构建前端服务
 
 后台管理网站:
      Html5 + Css3 + Typescript + Vue3 + ElementPlus
