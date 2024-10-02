@@ -1,7 +1,9 @@
 <template>
     <div class="main">
         <el-card class="card" id="card" @click="nextWord">
-            <div class="play"><el-icon size="24" @click.stop="playSound"><VideoPlay /></el-icon></div>
+            <div class="play"><el-icon size="24" @click.stop="playSound">
+                    <VideoPlay />
+                </el-icon></div>
             <div class="word" v-if="words[currentIndex]?.word.length">
                 <h2 v-if="!isFlipping">{{ words[currentIndex]?.word }}</h2>
                 <p v-if="!isFlipping">{{ '/' + words[currentIndex]?.phonetic + '/' }}</p>
@@ -17,16 +19,11 @@
             <el-link type="success" :icon="RefreshRight" @click="loadWord">更新每日单词</el-link>&nbsp;
             <el-link type="success" :icon="Setting" @click="wordSetting">设置每日单词</el-link>
         </div>
-        
+
         <el-dialog v-model="inSetting" draggable="true" title="每日单词设置" width="400">
             <el-span>单词个数</el-span>
             <el-select label="个数" v-model="nums" placeholder="Select" style="width: 240px">
-                <el-option
-                    v-for="(item, index) in [5, 10, 15, 20, 25]"
-                    :key="index"
-                    :label="item"
-                    :value="item"
-                />
+                <el-option v-for="(item, index) in [5, 10, 15, 20, 25]" :key="index" :label="item" :value="item" />
             </el-select>
         </el-dialog>
         <audio ref="audio" :src="audioSrc"></audio>
@@ -34,16 +31,16 @@
 </template>
 
 
-<script setup>
-import { RefreshRight, Setting, VideoPlay} from '@element-plus/icons-vue'
-import { ref, onMounted, onUnmounted,watch,nextTick } from 'vue';
+<script setup lang="ts">
+import { RefreshRight, Setting, VideoPlay } from '@element-plus/icons-vue'
+import { ref, onMounted, watch, nextTick } from 'vue';
 import { ElMessage } from 'element-plus'
 import axios from 'axios'; // 确保引入axios
-import { synthesizeTextToSpeech } from '/src/components/word/translation.ts';
-const words = ref([]);
-const nums = ref(10);
-const colors = ['hotpink', 'lightblue', 'lightgreen', 'lightcoral', 'lightsalmon']; // 预定义的颜色数组
-const colorIndex = ref(0); // 颜色索引
+import { synthesizeTextToSpeech } from './translation.ts';
+const words = ref<any>([]);
+const nums = ref<any>(10);
+const colors:any = ['hotpink', 'lightblue', 'lightgreen', 'lightcoral', 'lightsalmon']; // 预定义的颜色数组
+const colorIndex= ref<any>(0); // 颜色索引
 const currentIndex = ref(0);//当前卡片索引
 const error = ref('');
 const isFlipping = ref(false);
@@ -84,7 +81,7 @@ const playSound = async () => {
     }
 };
 
-watch(nums,()=> {
+watch(nums, () => {
     loadWord();
 })
 const loadWord = async () => {
@@ -191,10 +188,12 @@ const wordSetting = () => {
 .main {
     position: relative;
     cursor: pointer;
+
     .play {
         text-align: right;
         height: 20;
     }
+
     .card {
         background-color: hotpink;
         width: 400px;
@@ -237,6 +236,7 @@ const wordSetting = () => {
         top: 100px;
         transition: opacity 0.6s;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
         /* 添加过渡效果 */
         p {
             font-size: larger;
@@ -268,4 +268,5 @@ const wordSetting = () => {
         -ms-user-select: none;
         /* 适用于Internet Explorer/Edge */
     }
-}</style>
+}
+</style>

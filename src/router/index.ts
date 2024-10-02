@@ -2,11 +2,11 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 const routes = [
   { 
     path: '/',
-    component:() => import('../components/word/Words.vue')
+    component:() => import('../components/first/index.vue')
   },
   {
     path: '/gram',
-    component:() => import('../components/gram/Gram.vue')
+    component:() => import('../components/first/gram/Gram.vue')
   },
   {
     path: '/talk',
