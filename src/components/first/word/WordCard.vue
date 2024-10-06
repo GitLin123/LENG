@@ -46,7 +46,7 @@ const error = ref('');
 const isFlipping = ref(false);
 const loading = ref(false);
 const inSetting = ref(false);
-const audioSrc = ref('./11.wav');
+const audioSrc = ref('');
 const audio = ref(null)
 const playSound = async () => {
     try {
@@ -60,16 +60,12 @@ const playSound = async () => {
                 speed: 1.0,
                 volume: 1.0
             });
-
             // 将 Buffer 转换为 Blob
             const blob = new Blob([audioBuffer], { type: 'audio/mp3' });
-
             // 创建一个 URL 对象
             const url = URL.createObjectURL(blob);
-
             // 设置音频元素的源
             audioSrc.value = url;
-
             // 确保音频元素已经更新了 src 属性，然后播放音频
             nextTick(() => {
                 audio.value?.play();

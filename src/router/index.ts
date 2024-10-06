@@ -16,6 +16,15 @@ const routes = [
     path: '/home',
     component:() => import('../components/home/Home.vue')
   },
+  {
+    path: '/read',
+    component:() => import('../components/read/index.vue')
+  },
+  {
+    path: '/broad',
+    component:() => import('../components/broadcast/index.vue')
+  },
+  
 ]
 
 export const router = createRouter({

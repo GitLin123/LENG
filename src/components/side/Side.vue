@@ -9,12 +9,12 @@
           <span>首页</span>
         </el-menu-item>
 
-        <el-menu-item index="/gram">
+        <el-menu-item index="/broad">
           <el-icon><icon-menu /></el-icon>
           <span>播客</span>
         </el-menu-item>
 
-        <el-menu-item index="/gram">
+        <el-menu-item index="/read">
           <el-icon><icon-menu /></el-icon>
           <span>阅读</span>
         </el-menu-item>

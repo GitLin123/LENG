@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import Side from './components/side/Side.vue'
+
 </script>
 <style scoped>
 /* 定义过渡效果 */

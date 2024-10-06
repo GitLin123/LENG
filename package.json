@@ -21,6 +21,7 @@
     "my-electron-app": "file:",
     "scss": "^0.2.4",
     "vue": "^3.4.21",
+    "vue-audio-better": "^3.0.1",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {

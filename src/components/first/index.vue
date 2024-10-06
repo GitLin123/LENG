@@ -15,7 +15,12 @@
     <div class="learn">
         <div class="search"><el-input placeholder="输入要查的单词"  style="width:70%;"></el-input> <el-button type="primary" size="default" @click="">查单词</el-button></div>
         <div class="card">
-            <el-card shadow="always" style="height:100px;margin-bottom:10px;border-radius:10px" v-for="(item,index) in list" :body-style="{ padding: '20px'}">
+            <el-card shadow="hover" 
+            style="height:100px; margin-bottom:10px; border-radius:10px" 
+            v-for="(item,index) in list" 
+            :body-style="{ padding: '20px'}"
+            @click="jump(item.url)"
+            >
             <div slot="header">
                 <span>{{ item.name }}</span>
             </div>
@@ -27,8 +32,10 @@
 </template>
 <script lang="ts" setup>
 import WordCard from './word/WordCard.vue';
-import {ref} from 'vue'
-const isSearch = ref(false)
+import {ref} from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const isSearch = ref(false);
 const list = [
     {
         name: "学单词",
@@ -61,6 +68,10 @@ const imgs = [
     target:'https://www.chinadaily.com.cn/a/202409/27/WS66f60eb3a310f1265a1c5282.html'
   },
 ]
+
+const jump = (url) => {
+  router.push(url)
+}
 </script>
 <style scoped lang="scss">
 .el-carousel__item h3 {
@@ -120,7 +131,6 @@ const imgs = [
                 
             }
         }
-
     }
 }
 
